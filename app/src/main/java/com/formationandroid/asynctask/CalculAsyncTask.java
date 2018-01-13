@@ -31,28 +31,20 @@ public class CalculAsyncTask extends AsyncTask<Long, Float, Boolean>
 			
 			// calcul :
 			long diviseurMax = (long) Math.ceil(Math.sqrt(nombre));
-			long diviseur = 2;
-			boolean estPremier = true;
-			while (diviseur <= diviseurMax && estPremier)
+			for (long a = 2 ; a <= diviseurMax ; a++)
 			{
-				// test :
-				if (Math.round((double) nombre / diviseur) == (double) nombre / diviseur)
+				if (nombre % a == 0)
 				{
-					estPremier = false;
+					return false;
 				}
-				
-				// incrémentation :
-				diviseur++;
 				
 				// mise à jour de la barre de progression tous les 10000 itérations, par exemple :
-				if (diviseur % 10000 == 0)
+				if (a % 10000 == 0)
 				{
-					publishProgress((float) ((double) diviseur / diviseurMax));
+					publishProgress((float) ((double) a / diviseurMax));
 				}
 			}
-			
-			// résultat final :
-			return estPremier;
+			return true;
 		}
 		return null;
 	}
